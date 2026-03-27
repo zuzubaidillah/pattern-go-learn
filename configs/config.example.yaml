@@ -1,0 +1,45 @@
+app:
+  name: "yourapp"
+  env: "development"
+
+http:
+  port: "8080"
+  read_timeout: 10s
+  write_timeout: 10s
+  shutdown_timeout: 5s
+
+log:
+  level: "info"
+
+slack:
+  enabled: false
+  webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+  level: "info"
+
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+
+db:
+  mysql:
+    write:
+      dsn: "user:pass@tcp(localhost:3306)/yourapp_write?parseTime=true"
+      max_open_conns: 50
+      max_idle_conns: 10
+      conn_max_lifetime: 30m
+      conn_max_idle_time: 15m
+    read:
+      dsn: "user:pass@tcp(localhost:3306)/yourapp_read?parseTime=true"
+      max_open_conns: 100
+      max_idle_conns: 20
+      conn_max_lifetime: 30m
+      conn_max_idle_time: 15m
+
+jwt:
+  access_secret: "ganti-dengan-rahasia-akses-super-panjang"
+  refresh_secret: "ganti-dengan-rahasia-penyegar-super-panjang"
+  issuer: "yourapp-api"
+  audience: "yourapp-client"
+  access_token_ttl: 15m
+  refresh_token_ttl: 168h

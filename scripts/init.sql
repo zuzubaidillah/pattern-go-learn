@@ -1,0 +1,31 @@
+CREATE DATABASE IF NOT EXISTS `yourapp_write`;
+CREATE DATABASE IF NOT EXISTS `yourapp_read`;
+
+GRANT ALL PRIVILEGES ON `yourapp_write`.* TO 'user'@'%';
+GRANT ALL PRIVILEGES ON `yourapp_read`.* TO 'user'@'%';
+FLUSH PRIVILEGES;
+
+-- Create users table for testing User module in both Write and Read databases
+USE `yourapp_write`;
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) NOT NULL UNIQUE,
+    `password` VARCHAR(255) NOT NULL DEFAULT '',
+    `role` VARCHAR(50) NOT NULL DEFAULT 'user',
+    `status` VARCHAR(20) NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+USE `yourapp_read`;
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) NOT NULL UNIQUE,
+    `password` VARCHAR(255) NOT NULL DEFAULT '',
+    `role` VARCHAR(50) NOT NULL DEFAULT 'user',
+    `status` VARCHAR(20) NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
